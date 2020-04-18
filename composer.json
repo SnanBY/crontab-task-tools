@@ -8,16 +8,15 @@
   ],
   "homepage": "https://github.com/SnanBY/task_tools",
   "license": "MIT",
-  "version": "1.0",
-  "authors": [
+    "authors": [
     {
       "name": "snan",
       "email": "snanword@gmail.com",
       "homepage": "https://github.com/SnanBY",
-      "role": "Developer"
     }
   ],
   "require": {
+      "php": ">=5.6",
     "yzalis/crontab": "^1.0"
   }
 }
