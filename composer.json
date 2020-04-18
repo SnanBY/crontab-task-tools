@@ -1,0 +1,5 @@
+{
+    "require": {
+        "yzalis/crontab": "^1.0"
+    }
+}
