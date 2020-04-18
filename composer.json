@@ -1,5 +1,23 @@
 {
-    "require": {
-        "yzalis/crontab": "^1.0"
+  "name": "snanword/task_tools",
+  "type": "library",
+  "description": "Task management tools",
+  "keywords": [
+    "task",
+    "automation"
+  ],
+  "homepage": "https://github.com/SnanBY/task_tools",
+  "license": "MIT",
+  "version": "1.0",
+  "authors": [
+    {
+      "name": "snan",
+      "email": "snanword@gmail.com",
+      "homepage": "https://github.com/SnanBY",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "yzalis/crontab": "^1.0"
+  }
 }
