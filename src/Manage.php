@@ -85,7 +85,10 @@ class Manage
 
     public function taskList($ref = false)
     {
-        if($ref) $runTask = $this->db->get($this->redis_task_key);$this->run_task  = $runTask ? json_decode($runTask, true) : [];
+        if($ref) {
+            $runTask = $this->db->get($this->redis_task_key);
+            $this->run_task  = isset($runTask) ? json_decode($runTask, true) : [];
+        }
         $notStopList = array_diff(array_keys($this->task_list), array_keys($this->run_task));
         $colorRun    = get_color_text(32, 'run');
         $colorStop   = get_color_text(31, 'stop');
@@ -105,7 +108,7 @@ class Manage
     {
         $taskStatus = $this->taskStatus($this->param,false);
         if($taskStatus!==true){
-            if($this->param!=='all') return $taskStatus;
+            if($this->param!=='all' && $this->param) return $taskStatus;
             $killList = $this->run_task;
         }else{
             $killList = [$this->param=>$this->keyToClass($this->param)['path']];

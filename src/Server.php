@@ -24,6 +24,7 @@ class Server
         'list'  => 'taskList',
         'kill'  => 'killTask',
         'stop'  => 'stopTask',
+        'run'   => 'runTask',
         'help',
     ];
     private $db;
