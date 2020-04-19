@@ -17,8 +17,7 @@
     ],
     "autoload": {
       "psr-4": {
-        "SnanWord\\TaskTool\\": "src/",
-        "SnanWord\\TaskTool\\task\\": "test/"
+        "SnanWord\\TaskTool\\": "src/"
       },
       "files": ["src/basis/function.php"]
     },
