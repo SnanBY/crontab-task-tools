@@ -132,7 +132,7 @@ class Manage
             die;
         }
         if(!$this->keyToClass($this->param)){
-            echo get_color_text(31,'task '.$this->param.' does not exist');
+            echo get_color_text(31,'task '.$this->param.' does not exist').PHP_EOL;
             die;
         }
         call_user_func(array($this->keyToClass($this->param)['path'], 'run'));
