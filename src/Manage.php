@@ -27,25 +27,38 @@ class Manage
 
     public function __construct(Client $db)
     {
-        $this->param     = env_val('param');
+        $this->param     = env_val('param',false);
         $this->task_list = env_val('task_list', []);
         $this->db        = $db;
         $runTask         = $this->db->get($this->redis_task_key);
         $this->run_task  = $runTask ? json_decode($runTask, true) : [];
     }
 
+    /**
+     * start
+     * @des    开启全部任务
+     * @return string
+     * @author Snan
+     */
     public function start()
     {
         return $this->addTask();
     }
 
+    /**
+     * stopTask
+     * @des    关闭全部任务
+     * @return bool|string
+     * @author Snan
+     */
     public function stopTask(){
+        $this->param = false;
         return $this->killTask();
     }
 
     /**
      * addTask
-     * @des    插入task
+     * @des    添加task
      * @return string
      * @author Snan
      */
@@ -83,6 +96,13 @@ class Manage
         return $this->taskList(true);
     }
 
+    /**
+     * taskList
+     * @des   task列表
+     * @param bool $ref
+     * @return string
+     * @author Snan
+     */
     public function taskList($ref = false)
     {
         if($ref) {
@@ -104,6 +124,12 @@ class Manage
         return get_color_text(32,'success');
     }
 
+    /**
+     * killTask
+     * @des    删除Task
+     * @return bool|string
+     * @author Snan
+     */
     public function killTask()
     {
         $taskStatus = $this->taskStatus($this->param,false);
@@ -124,6 +150,12 @@ class Manage
         return $this->taskList(true);
     }
 
+    /**
+     * runTask
+     * @des    执行任务
+     * @return string
+     * @author Snan
+     */
     public function runTask()
     {
         $taskStatus = $this->taskStatus($this->param);
@@ -136,8 +168,17 @@ class Manage
             die;
         }
         call_user_func(array($this->keyToClass($this->param)['path'], 'run'));
+        return get_color_text(32,'success');
     }
 
+    /**
+     * taskStatus
+     * @des   获取任务状态
+     * @param string $param
+     * @param bool   $checkRun
+     * @return bool|string
+     * @author Snan
+     */
     public function taskStatus($param = '',$checkRun = true)
     {
         if (!$param) $param = $this->param;
@@ -147,7 +188,7 @@ class Manage
             return get_color_text(31, 'Please add a task to the configuration file the task name is' . $param) . PHP_EOL;;
         }
 
-        if (!$this->task_list[$param]) {
+        if (!intval($this->task_list[$param])) {
             return get_color_text(31, 'task ' . $param . ' is not started') . PHP_EOL;
         }
 
@@ -158,6 +199,13 @@ class Manage
         return true;
     }
 
+    /**
+     * keyToClass
+     * @des   参数转类名
+     * @param $key
+     * @return array|bool
+     * @author Snan
+     */
     public function keyToClass($key){
         $taskName = implode('', array_map(function ($v) {
             return ucfirst($v);

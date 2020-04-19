@@ -3,7 +3,7 @@
 namespace SnanWord\TaskTool\task;
 use SnanWord\TaskTool\basis\TaskAbstract;
 
-class AutoReceiptTask extends TaskAbstract
+class TesttwoTask extends TaskAbstract
 {
     /**
      * run

@@ -40,11 +40,5 @@ if(env_val('deamon',false)){
 }
 $ret = \SnanWord\TaskTool\Server::getInstance()->run($args);
 if (!empty($ret)) {
-    if(!file_exists(SNANTASK_ROOT.'/snantask.php')){
-        $dir = opendir(SNANTASK_ROOT);
-        copy(SNAN_BIN_PATH, SNANTASK_ROOT.'/snantask.php');
-        closedir($dir);
-        echo get_color_text(32,'Initialization successful').PHP_EOL;
-    }
     echo $ret . "\n";
 }

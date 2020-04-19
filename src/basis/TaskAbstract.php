@@ -13,7 +13,7 @@ namespace SnanWord\TaskTool\basis;
 
 abstract class TaskAbstract
 {
-    public $task_name    = __CLASS__?__CLASS__:'';
+    private $task_name    = __CLASS__;
 
     /**
      * run
