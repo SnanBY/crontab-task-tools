@@ -68,7 +68,7 @@ After the initialization is complete, the snantask.php file will be generated in
 
 4:start task
 ```
-    php snantask.php list
+    php snantask.php start
     
     task test_task is not started 
     Task list status: 
@@ -88,4 +88,15 @@ After the initialization is complete, the snantask.php file will be generated in
 ```$xslt
    php snantask.php stop              //Close all
    php snantask.php stop {your task}  //Close one
+```
+
+7:show list
+```
+    php snantask.php list
+    
+    Task list status: 
+    | task_name:auto_receipt_task| task_class:\SnanWord\TaskTool\task\AutoReceiptTask| status:run 
+    | task_name:test_task| status:stop 
+    success 
+
 ```
