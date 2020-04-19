@@ -14,6 +14,8 @@ namespace SnanWord\TaskTool;
 use Predis\Client;
 use SnanWord\TaskTool\basis\CrontabManage;
 use SnanWord\TaskTool\basis\Singleton;
+use think\facade\Db;
+use think\Model;
 
 class Manage
 {
@@ -52,7 +54,6 @@ class Manage
      * @author Snan
      */
     public function stopTask(){
-        $this->param = false;
         return $this->killTask();
     }
 
@@ -86,7 +87,6 @@ class Manage
                 echo get_color_text(31, 'warning：Task' . $taskInfo['class'] . 'setCrontab returns abnormal format!' . PHP_EOL);
                 continue;
             }
-            $crontabRule[5] = 'php ' . SNAN_BIN_PATH . ' run ' . $taskInfo['class'];
             CrontabManage::getInstance()->delete($crontabRule);
             CrontabManage::getInstance()->setJob($crontabRule);
             $insTask[$k] = $taskInfo['path'];
@@ -183,16 +183,14 @@ class Manage
     {
         if (!$param) $param = $this->param;
         if (!$param) return get_color_text(31, 'Please pass the parameter: task key') . PHP_EOL;
-
         if (!isset($this->task_list[$param])) {
-            return get_color_text(31, 'Please add a task to the configuration file the task name is' . $param) . PHP_EOL;;
+            return get_color_text(31, 'Please add a task to the configuration file the task name is ' . $param) . PHP_EOL;
         }
 
         if (!intval($this->task_list[$param])) {
             return get_color_text(31, 'task ' . $param . ' is not started') . PHP_EOL;
         }
-
-        if (isset($this->run_task[$param]) && $checkRun) {
+        if (isset($this->run_task[$param]) && !$checkRun) {
             return get_color_text(31, 'task ' . $param . ' has been started') . PHP_EOL;
         }
 
@@ -210,7 +208,7 @@ class Manage
         $taskName = implode('', array_map(function ($v) {
             return ucfirst($v);
         }, explode('_', $key)));
-        $taskFile = '\\SnanWord\\TaskTool\\task\\' . $taskName;
+        $taskFile = env_val('task_config.task_namespace','\\SnanWord\\TaskTool\task\\') . $taskName;
         if (!class_exists($taskFile)) {
             return false;
         }
@@ -233,7 +231,7 @@ class Manage
             //记录日志
             return get_color_text(31, 'warning：Task' . $taskInfo['class'] . 'setCrontab returns abnormal format!' . PHP_EOL);
         }
-        $crontabRule[5] = 'php ' . SNAN_BIN_PATH . ' run ' . $taskInfo['class'];
+        $crontabRule[5] =             $crontabRule[5] = 'php ' . SNAN_BIN_PATH . ' run ' . uncamelize($taskInfo['class']).' > '.SNANTASK_ROOT.'/snantask_error.log';
         return $crontabRule;
     }
 }

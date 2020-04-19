@@ -4,6 +4,7 @@
 ```
 [TASK_CONFIG] //Whether the command line outputs error messages
 DEAMON = false
+TASK_NAMESPACE = '\SnanWord\TaskTool\task\'  settion your task namespace
 
 [REDIS] //redis configuration file
 host = 127.0.0.1
@@ -18,16 +19,8 @@ test_task => 0
 ```
 
 ## Make Task
-1:Define your task file location in the composer.json file
-```
-    "autoload": {
-          "psr-4": {
-            "SnanWord\\TaskTool\\task\\": "{your task dir}"
-          }
-        },
-```
 
-2:Write Task code
+1:Write Task code
 ```php
 <?php
 
@@ -60,13 +53,13 @@ class AutoReceiptTask extends TaskAbstract
     }
 }
 ```
-3:Enter the following command at the command line to initialize
+2:Enter the following command at the command line to initialize
 ```
 php vendor/snanword/task_tools/src/bin/snantask.php run
 After the initialization is complete, the snantask.php file will be generated in the root directory of your project
 ```
 
-4:start task
+3:start task
 ```
     php snantask.php start
     
@@ -77,20 +70,20 @@ After the initialization is complete, the snantask.php file will be generated in
     success 
 
 ```
-5:add task  The task can also be delivered after the start task
+4:add task  The task can also be delivered after the start task
 ```
   Add your new task under the TASK_LIST configuration in the .env file, and then execute the following command
 
   php snantask.php add {Your new task}
 ```
 
-6:closs task
+5:closs task
 ```$xslt
    php snantask.php stop              //Close all
    php snantask.php stop {your task}  //Close one
 ```
 
-7:show list
+6:show list
 ```
     php snantask.php list
     
