@@ -237,10 +237,10 @@ class Manage
             return get_color_text(31, 'warning：Task' . $taskInfo['class'] . 'setCrontab returns abnormal format!' . PHP_EOL);
         }
         $mode = strtolower(env_val('task_config.mode','default'));
-        $nameSpace = str_replace('\\','\\\\',env_val('task_config.task_namespace','\\SnanWord\\task\\'));
+        $nameSpace = env_val('task_config.task_namespace','\\SnanWord\\task\\');
         switch ($mode){
             case 'think':
-                $crontabRule[5] = $crontabRule[5] = 'php ' . SNANTASK_ROOT . '/think snantask ' .$nameSpace. $taskInfo['class'].' > '.SNANTASK_ROOT.'/snantask_error.log';
+                $crontabRule[5] = $crontabRule[5] = 'php ' . SNANTASK_ROOT . '/think snantask \'' .$nameSpace. $taskInfo['class'].'\' > '.SNANTASK_ROOT.'/snantask_error.log';
                 break;
             default:
                 $crontabRule[5] =             $crontabRule[5] = 'php ' . SNAN_BIN_PATH . ' run ' . uncamelize($taskInfo['class']).' > '.SNANTASK_ROOT.'/snantask_error.log';
