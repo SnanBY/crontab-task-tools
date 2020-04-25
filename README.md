@@ -5,6 +5,7 @@
 [TASK_CONFIG] //Whether the command line outputs error messages
 DEAMON = false
 TASK_NAMESPACE = '\SnanWord\TaskTool\task\'  settion your task namespace
+MODE = 'think' //If thinkphp class library is used in the task, please add this item, otherwise do not add
 
 [REDIS] //redis configuration file
 host = 127.0.0.1
@@ -38,7 +39,7 @@ class AutoReceiptTask extends TaskAbstract
     public function run()
     {
         // TODO: Implement run() method.
-        var_dump(123);
+        var_dump('hello-word');
     }
 
     /**
@@ -55,7 +56,7 @@ class AutoReceiptTask extends TaskAbstract
 ```
 2:Enter the following command at the command line to initialize
 ```
-php vendor/snanword/task_tools/src/bin/snantask.php run
+php vendor/snanword/task_tools/src/bin/snantask.php init
 After the initialization is complete, the snantask.php file will be generated in the root directory of your project
 ```
 
